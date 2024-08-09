@@ -32,5 +32,5 @@
   "containerUser": "vscode",
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  // "postCreateCommand": "bin/setup"
+  "postCreateCommand": "source ~/.zshrc && bin/setup"
 }
