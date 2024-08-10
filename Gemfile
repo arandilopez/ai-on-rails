@@ -41,6 +41,8 @@ gem "jbuilder"
 
 gem "neighbor"
 
+gem "ollama-ai"
+
 gem "mechanize"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
