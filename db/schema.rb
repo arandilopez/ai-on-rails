@@ -10,9 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_09_001029) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_10_185219) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "vector"
 
+  create_table "drug_embeddings", force: :cascade do |t|
+    t.bigint "drug_id", null: false
+    t.vector "embedding", limit: 1024, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["drug_id"], name: "index_drug_embeddings_on_drug_id"
+    t.index ["embedding"], name: "index_drug_embeddings_on_embedding", opclass: :vector_cosine_ops, using: :hnsw
+  end
+
+  create_table "drugs", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.string "url"
+    t.text "raw_content"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_drugs_on_name"
+    t.index ["slug"], name: "index_drugs_on_slug"
+  end
+
+  add_foreign_key "drug_embeddings", "drugs"
 end
