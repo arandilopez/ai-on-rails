@@ -1,50 +1,54 @@
-class DrugAI
-  MODEL = "gemma2".freeze
+class DrugAi
+  MODEL = "gemma2".freeze # By Google
+  API_URL = ENV.fetch("OLLAMA_ADDRESS", "http://host.docker.internal:11434")
 
   def initialize
     @ollama = Ollama.new(
-      credentials: { address: ENV.fetch(
-        "OLLAMA_ADDRESS", "http://host.docker.internal:11434"
-      ), },
+      credentials: { address: API_URL, },
       options: { server_sent_events: true }
     )
   end
 
   def ask(question, drugs)
-    prompt = <<~PROMPT
+    generate <<~PROMPT
       You're a pharmacist and a patient asks you: "#{question}". What would you answer?
-      Use this drugs information to provide a better answer:
-      #{drugs.map { |drug| "Drug name: #{drug.name}:\n#{drug.content}" }.join("\n")}
+      Use this information as context to provide a better answer and return the response in markdown format:
+
+      #{drugs.map { |drug| "Drug name: #{drug.name}\n#{drug.raw_content}" }.join("\n")}
     PROMPT
-
-    result = ollama.generate({
-                               model: MODEL,
-                               prompt: prompt,
-                               stream: false
-                             })
-
-    result.first["response"]
   end
 
   def summarize(drug)
-    prompt = <<~PROMPT
-      You're a pharmacist and a patient asks you: "Can you summarize #{drug.name} for me?".
-      What would you answer?
-      Use this drugs information to provide a better answer:
+    generate <<~PROMPT
+      You're a pharmacist and a patient asks you: "Can you explain or summarize #{drug.name} for me?". What would you answer?
+      Use this information as context to provide a better answer and return the response in markdown format:
+
       Drug name: #{drug.name}:
-      #{drug.content}
+      #{drug.raw_content}
     PROMPT
+  end
 
-    result = ollama.generate({
-                               model: MODEL,
-                               prompt: prompt,
-                               stream: false
-                             })
+  def format_to_markdown(drug)
+    generate <<~PROMPT
+      Convert the following text to markdown without any other outputs:
 
-    result.first["response"]
+      #{drug.name}
+      #{drug.raw_content}
+    PROMPT
   end
 
   private
 
-  attr_reader :ollama
+  def generate(prompt)
+    result = @ollama.generate({
+                                model: MODEL,
+                                prompt: prompt,
+                                stream: false,
+                                options: {
+                                  num_ctx: 8192
+                                }
+                              })
+
+    result.first["response"]
+  end
 end
