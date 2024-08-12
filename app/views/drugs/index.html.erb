@@ -1,0 +1,27 @@
+<div class="flex flex-col gap-8 justify-center items-center">
+  <h1 class="text-6xl text-center text-purple-900 font-bold my-4">Drugs Ai</h1>
+
+  <%= form_with url: search_drugs_path, html: { class: "max-w-screen-md w-full" } do |f| %>
+    <%= f.label :query do %>
+      <div class="relative">
+        <%= f.text_field :query, class: "w-full border-2 border-purple-900 rounded-lg p-2", placeholder: "Ask something..." %>
+        <%= f.button class: "absolute right-0 top-0 mt-2 mr-2" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 19l-2-2" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17l-2-2" />
+          </svg>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+
+  <ul class="flex flex-wrap gap-2 text-center justify-center items-center">
+    <% @drugs.each do |drug| %>
+      <li>
+        <%= link_to drug.name, drug_path(drug.slug), class: "underline hover:text-purple-900" %>
+      </li>
+    <% end %>
+  </ul>
+</div>
