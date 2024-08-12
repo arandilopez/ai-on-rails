@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_10_185219) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_11_172108) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "vector"
@@ -22,6 +22,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_10_185219) do
     t.datetime "updated_at", null: false
     t.index ["drug_id"], name: "index_drug_embeddings_on_drug_id"
     t.index ["embedding"], name: "index_drug_embeddings_on_embedding", opclass: :vector_cosine_ops, using: :hnsw
+  end
+
+  create_table "drug_similarities", force: :cascade do |t|
+    t.bigint "drug_id", null: false
+    t.bigint "similar_drug_id", null: false
+    t.integer "rank", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["drug_id", "similar_drug_id"], name: "index_drug_similarities_on_drug_id_and_similar_drug_id", unique: true
+    t.index ["drug_id"], name: "index_drug_similarities_on_drug_id"
+    t.index ["similar_drug_id"], name: "index_drug_similarities_on_similar_drug_id"
   end
 
   create_table "drugs", force: :cascade do |t|
@@ -37,4 +48,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_10_185219) do
   end
 
   add_foreign_key "drug_embeddings", "drugs"
+  add_foreign_key "drug_similarities", "drugs"
+  add_foreign_key "drug_similarities", "drugs", column: "similar_drug_id"
 end

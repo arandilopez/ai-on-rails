@@ -6,6 +6,7 @@ class CreateDrugEmbeddings < ActiveRecord::Migration[7.2]
 
       t.timestamps
 
+      # Create a HNSW index on the embedding column for cosine similarity search
       t.index :embedding, using: :hnsw, opclass: :vector_cosine_ops
     end
   end
