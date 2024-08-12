@@ -29,14 +29,11 @@ class DrugScrapper
 
   def get_drug_info_content(drug_url)
     page = agent.get(drug_url)
-
-    raw_content = page.search("#content").to_s
-
     content = page.search("#content > h2, #content > p, #content > ul, #content > b")
                   .map(&:text)
                   .join("\n")
                   .gsub(/\n... show all .*\n\n/, "")
 
-    { content: content, raw_content: raw_content }
+    { content: content }
   end
 end

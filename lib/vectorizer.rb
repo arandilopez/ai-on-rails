@@ -12,7 +12,7 @@ class Vectorizer
 
   def vectorize(text)
     prompt = <<~PROMPT
-      Represent this text for searching relevant information:
+      Represent this drug description text for searching relevant information:
       #{text}
     PROMPT
 
