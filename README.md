@@ -7,6 +7,7 @@ This is a POC project that integrates text embedding and stores the vectors in P
 - Ruby 3.3.4
 - Rails 7.2
 - Docker
+- [Devpod](https://devpod.sh/) (optional)
 - Postgres 16 with [pgvector](https://github.com/pgvector/pgvector)
 - [Ollama](https://ollama.com/)
     - [Gemma2](https://ai.google.dev/gemma#gemma-2)
@@ -24,7 +25,7 @@ Clone or fork the repo
 git clone https://github.com/arandilopez/ai-on-rails.git
 ```
 
-Start the devcontainer in VsCode or run the following command if you have [devpod](https://devpod.sh/) installed
+Start the devcontainer in VsCode or run the following command if you have **Devpod** installed
 
 ```bash
 devpod up .
@@ -49,6 +50,7 @@ rails db:migrate
 ```
 
 Seed the database
+
 ```bash
 rails db:seed
 ```
