@@ -49,7 +49,7 @@ namespace :drugs do
   end
 
   desc "Vectorize drugs content"
-  task vectorize: :environment do
+  task generate_embeddings: :environment do
     vectorizer = Vectorizer.new
 
     Drug.where.missing(:drug_embedding).find_each do |drug|
