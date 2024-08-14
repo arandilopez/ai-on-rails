@@ -5,7 +5,7 @@ import { Turbo } from "@hotwired/turbo-rails";
 export default class extends Controller {
   connect() {}
 
-  navigate() {
+  navigation() {
     const url = this.element.getAttribute("href");
     Turbo.navigator.history.push(new URL(url));
   }

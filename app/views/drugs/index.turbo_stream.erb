@@ -13,10 +13,10 @@
 <%= turbo_stream.update "drugs_pagination" do %>
   <div class="flex mt-12 items-center justify-center space-x-4 w-full">
   <% if @pagy.prev %>
-    <%= link_to "Prev", drugs_url(page: @pagy.prev), data: { turbo_stream: true, controller: "turbo-frame-history", action: "click->turbo-frame-history#navigate" }, class: "bg-white rounded px-6 py-3 border border-purple-400 shadow" %>
+    <%= link_to "Prev", drugs_url(page: @pagy.prev), data: { turbo_stream: true, controller: "turbo-frame-history", action: "click->turbo-frame-history#navigation" }, class: "bg-white rounded px-6 py-3 border border-purple-400 shadow" %>
   <% end %>
   <% if @pagy.next %>
-    <%= link_to "Next", drugs_url(page: @pagy.next), data: { turbo_stream: true, controller: "turbo-frame-history", action: "click->turbo-frame-history#navigate" }, class: "bg-white rounded px-6 py-3 border border-purple-400 shadow" %>
+    <%= link_to "Next", drugs_url(page: @pagy.next), data: { turbo_stream: true, controller: "turbo-frame-history", action: "click->turbo-frame-history#navigation" }, class: "bg-white rounded px-6 py-3 border border-purple-400 shadow" %>
   <% end %>
   </div>
   <p class="text-center text-sm mt-8 text-gray-500"><%== pagy_info @pagy %></p>
