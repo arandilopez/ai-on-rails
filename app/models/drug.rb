@@ -5,13 +5,14 @@ class Drug < ApplicationRecord
 
   # Nearest neighbors search
   def self.search(query, limit = 10)
-    vector = Vectorizer.new.vectorize(query)
-    DrugEmbedding.set_ef_search(limit * 1.5)
+    vector = Vectorizer.new.vectorize_query(query)
+    DrugEmbedding.set_ef_search(limit * 1.2)
     Drug.where(id: DrugEmbedding.select(:drug_id).nearest_neighbors(:embedding, vector,
                                                                     distance: "cosine").first(limit))
   end
 
   def similars(limit = 10)
+    # Returns similar drugs from cache
     similars = similar_drugs.limit(limit)
     return similars if similars.length <= limit
 

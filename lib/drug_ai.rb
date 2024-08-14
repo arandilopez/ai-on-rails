@@ -12,7 +12,7 @@ class DrugAi
   def ask(question, drugs)
     generate <<~PROMPT
       You're a pharmacist and a patient asks you: "#{question}". What would you answer?
-      Use this information as context to provide a better answer and return the response in markdown format:
+      Use the following information as context to provide a better answer and return the response in markdown format:
 
       #{drugs.map { |drug| "Drug name: #{drug.name}\n#{drug.raw_content}" }.join("\n")}
     PROMPT
@@ -21,7 +21,7 @@ class DrugAi
   def summarize(drug)
     generate <<~PROMPT
       You're a pharmacist and a patient asks you: "Can you explain or summarize #{drug.name} for me?". What would you answer?
-      Use this information as context to provide a better answer and return the response in markdown format:
+      Use the following information as context to provide a better answer and return the response in markdown format:
 
       Drug name: #{drug.name}:
       #{drug.raw_content}
@@ -31,7 +31,6 @@ class DrugAi
   def format_to_markdown(drug)
     generate <<~PROMPT
       Convert the following text to markdown without any other outputs:
-
       #{drug.name}
       #{drug.raw_content}
     PROMPT

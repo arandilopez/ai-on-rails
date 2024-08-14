@@ -12,13 +12,22 @@ class Vectorizer
 
   def vectorize(text)
     prompt = <<~PROMPT
-      Represent this drug description text for searching relevant information:
+      Represent this sentence for searching relevant passages:
       #{text}
     PROMPT
 
     result = ollama.embeddings({
                                  model: MODEL,
                                  prompt: prompt
+                               })
+
+    result.first["embedding"]
+  end
+
+  def vectorize_query(query)
+    result = ollama.embeddings({
+                                 model: MODEL,
+                                 prompt: query
                                })
 
     result.first["embedding"]
