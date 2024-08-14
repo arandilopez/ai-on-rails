@@ -1,6 +1,10 @@
 class DrugsController < ApplicationController
   def index
     @pagy, @drugs = pagy(Drug.order(id: :asc).all)
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def show

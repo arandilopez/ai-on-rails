@@ -17,11 +17,18 @@
   <% end %>
 
 
-  <ul class="flex flex-wrap gap-2 text-center justify-center items-center">
-    <% @drugs.each do |drug| %>
-      <li>
-        <%= link_to drug.name, drug_path(drug.slug), class: "underline hover:text-purple-900" %>
-      </li>
+  <div class="flex flex-col justify-center items-center">
+    <%= turbo_frame_tag "drugs_list", src: drugs_path(format: :turbo_stream, page: params[:page]), loading: "lazy" do %>
+      <ul class="flex flex-wrap gap-2 text-center justify-center items-center" id="drugs_placeholder">
+        <% 20.times.each do |drug| %>
+          <li>
+            <div class="animate-pulse"><div class="h-2 w-24 bg-slate-200 rounded"></div></div>
+          </li>
+        <% end %>
+      </ul>
     <% end %>
-  </ul>
+
+    <%= turbo_frame_tag "drugs_pagination" %>
+  </div>
+
 </div>

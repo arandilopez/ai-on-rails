@@ -11,9 +11,6 @@ services:
     volumes:
     - ../..:/workspaces:cached
 
-    ports:
-      - 3000:3000
-
     command: sleep infinity
 
     depends_on:

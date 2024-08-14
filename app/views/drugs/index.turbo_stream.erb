@@ -1,0 +1,23 @@
+<%= turbo_stream.remove "drugs_placeholder" %>
+
+<%= turbo_stream.update "drugs_list" do %>
+  <ul class="flex flex-wrap gap-2 text-center justify-center items-center">
+    <% @drugs.each do |drug| %>
+      <li id="<%= dom_id drug %>">
+      <%= link_to drug.name, drug_path(drug.slug), class: "underline hover:text-purple-900", data: { turbo: false } %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= turbo_stream.update "drugs_pagination" do %>
+  <div class="flex mt-12 items-center justify-center space-x-4 w-full">
+  <% if @pagy.prev %>
+    <%= link_to "Prev", drugs_url(page: @pagy.prev), data: { turbo_stream: true }, class: "bg-white rounded px-6 py-3 border border-purple-400 shadow" %>
+  <% end %>
+  <% if @pagy.next %>
+    <%= link_to "Next", drugs_url(page: @pagy.next), data: { turbo_stream: true }, class: "bg-white rounded px-6 py-3 border border-purple-400 shadow" %>
+  <% end %>
+  </div>
+  <p class="text-center text-sm mt-8 text-gray-500"><%== pagy_info @pagy %></p>
+<% end %>
