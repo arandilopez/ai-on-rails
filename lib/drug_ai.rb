@@ -1,10 +1,10 @@
 class DrugAi
   MODEL = "gemma2".freeze # By Google
-  API_URL = ENV.fetch("OLLAMA_ADDRESS", "http://host.docker.internal:11434")
+  OLLAMA_ADDRESS = ENV.fetch("OLLAMA_ADDRESS", "http://host.docker.internal:11434").freeze
 
   def initialize
     @ollama = Ollama.new(
-      credentials: { address: API_URL, },
+      credentials: { address: OLLAMA_ADDRESS, },
       options: { server_sent_events: true }
     )
   end

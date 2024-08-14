@@ -1,11 +1,10 @@
 class Vectorizer
   MODEL = "mxbai-embed-large".freeze
+  OLLAMA_ADDRESS = ENV.fetch("OLLAMA_ADDRESS", "http://host.docker.internal:11434").freeze
 
   def initialize
     @ollama = Ollama.new(
-      credentials: { address: ENV.fetch(
-        "OLLAMA_ADDRESS", "http://host.docker.internal:11434"
-      ), },
+      credentials: { address: OLLAMA_ADDRESS, },
       options: { server_sent_events: true }
     )
   end
