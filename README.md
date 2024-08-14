@@ -19,63 +19,82 @@ This project downloaded drugs information from [Drugs.com](https://www.drugs.com
 
 ## Installation
 
-Clone or fork the repo
+1. Clone or fork the repo
 
 ```bash
 git clone https://github.com/arandilopez/ai-on-rails.git
 ```
 
-Start the devcontainer in VsCode or run the following command if you have **Devpod** installed
+2. Start the devcontainer in VsCode or run the following command if you have **Devpod** installed
 
 ```bash
 devpod up .
 ```
 
-Install the dependencies
+3. Install the dependencies
 
 ```bash
 bundle install
 ```
 
-Create the database
+4. Create the database
 
 ```bash
 rails db:create
 ```
 
-Run the migrations
+5. Run the migrations
 
 ```bash
 rails db:migrate
 ```
 
-Seed the database
+6. Seed the database, this will populate the database with the drugs information
 
 ```bash
 rails db:seed
 ```
 
-Start the server
+7. Start the server
 
 ```bash
 bin/dev
 ```
 
-## Data scraping
+### Start Ollama models
 
-To scrape the data from Drugs.com run the following command
+1. Install Ollama from the [download page](https://ollama.com/download)
+2. Pull the models
+
+```bash
+ollama pull mxbai-embed-large-v1
+```
+
+```bash
+ollama pull gemma2
+```
+
+3. Start the Ollama server
+
+```bash
+ollama server
+```
+
+## Data scraping (optional)
+
+1. To scrape the data from Drugs.com run the following command
 
 ```bash
 rake drugs:scrap_urls
 ```
 
-Then scrap the drugs information
+2. Then scrap the drugs information
 
 ```bash
 rake drugs:scrap_content
 ```
 
-To get a markdown formatted description of the drugs run
+3. To get a markdown formatted description of the drugs run
 
 ```bash
 rake drugs:convert_to_markdown
@@ -83,7 +102,9 @@ rake drugs:convert_to_markdown
 
 This will be a slow process, so be patient.
 
-After that you can generate the embeddings
+## Generate embeddings
+
+Maker sure you have the Ollama server running and the models downloaded. Then run the following command
 
 ```bash
 rake drugs:generate_embeddings
