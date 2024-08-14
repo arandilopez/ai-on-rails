@@ -7,3 +7,7 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+ActiveRecord::Base.transaction do
+  ActiveRecord::Base.connection.execute(File.read(Rails.root.join("db/drugs.sql")))
+end
