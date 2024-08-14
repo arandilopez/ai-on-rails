@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get "/drugs", to: "drugs#index", as: :drugs
-  post "/drugs/search", to: "drugs#search", as: :search_drugs
+  post "/drugs/ask", to: "drugs#ask", as: :ask_ai
   get "/d/:slug", to: "drugs#show", as: :drug
   post "/d/:slug/summarize", to: "drugs#summarize", as: :summarize_drug
 

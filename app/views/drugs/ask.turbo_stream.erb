@@ -1,0 +1,9 @@
+<%= turbo_stream.replace "ai_response" do %>
+  <div id="ai_response" class="w-full prose border bg-purple-50 py-2 px-4 rounded-lg shadow-md">
+    <div class="block group-aria-[busy=true]:hidden">
+      <%= render_markdown @response %>
+    </div>
+
+    <%= render partial: "ai_response_placeholder" %>
+  </div>
+<% end %>
