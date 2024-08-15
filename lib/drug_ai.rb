@@ -16,10 +16,10 @@ class DrugAi
       If the patient asks you about any topic not related to drugs, healthcare, or medicine,
       respond with "I'm sorry, I can only answer questions about drugs, healthcare, or medicine.":
 
-      If the patient asks you about any of the following drugs, provide a better answer
+      If the patient asks you about any of the following drugs (ordered by most relevant), provide a better answer
       using the following information as context and return the response in markdown format:
 
-      #{drugs.map { |drug| "Drug name: #{drug.name}\n#{drug.raw_content}" }.join("\n")}
+        #{drugs.map.with_index { |drug, index| "#{index + 1}. Drug name: #{drug.name}\n#{drug.raw_content}" }.join("\n")}
     PROMPT
   end
 

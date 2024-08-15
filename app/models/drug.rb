@@ -1,5 +1,5 @@
 class Drug < ApplicationRecord
-  SEARCH_LIMIT = 20
+  SEARCH_LIMIT = 5
 
   has_one :drug_embedding, dependent: :destroy
   has_many :drug_similarities, -> { order(rank: :asc) }, dependent: :destroy
@@ -10,7 +10,7 @@ class Drug < ApplicationRecord
     vector = Vectorizer.new.vectorize_query(query)
     DrugEmbedding.set_ef_search(limit * 1.2)
     Drug.where(id: DrugEmbedding.select(:drug_id).nearest_neighbors(:embedding, vector,
-                                                                    distance: "cosine").first(limit))
+                                                                    distance: "cosine").first(limit).pluck(:drug_id))
   end
 
   def similars(limit = SEARCH_LIMIT)

@@ -2,6 +2,16 @@
   <div id="ai_response" class="w-full prose border bg-purple-50 py-2 px-4 rounded-lg shadow-md">
     <div class="block group-aria-[busy=true]:hidden">
       <%= render_markdown @response %>
+      <div class="mt-5">
+        <h4>Relevant Drugs</h4>
+        <ul class="list-none flex flex-wrap gap-2 text-center justify-center items-center">
+          <% @drugs.each do |drug| %>
+            <li id="<%= dom_id drug %>">
+              <%= link_to drug.name, drug_path(drug.slug), class: "underline hover:text-purple-900", target: "_top" %>
+            </li>
+          <% end %>
+          </ul>
+      </div>
     </div>
 
     <%= render partial: "ai_response_placeholder" %>

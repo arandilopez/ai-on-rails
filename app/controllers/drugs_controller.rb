@@ -12,9 +12,9 @@ class DrugsController < ApplicationController
   end
 
   def ask
-    drugs = Drug.search(params[:query], params[:limit] || Drug::SEARCH_LIMIT)
+    @drugs = Drug.search(params[:query])
     ai = DrugAi.new
-    @response = ai.ask(params[:query], drugs)
+    @response = ai.ask(params[:query], @drugs.first(2))
 
     respond_to do |format|
       format.html { render :index }
