@@ -1,6 +1,5 @@
-<div class="flex flex-col gap-8 justify-center items-center">
+<div class="flex flex-col gap-8 justify-center items-center mt-32">
   <h1 class="text-6xl text-center text-purple-900 font-bold my-4">Drugs Ai</h1>
-
 
   <%= turbo_frame_tag "ai_form", class: "group block w-full flex flex-col justify-center items-center gap-4" do %>
     <%= render partial: "form" %>
@@ -13,14 +12,13 @@
   <div class="flex flex-col justify-center items-center">
     <%= turbo_frame_tag "drugs_list", src: drugs_path(format: :turbo_stream, page: params[:page]), loading: "lazy" do %>
       <ul class="flex flex-wrap gap-2 text-center justify-center items-center" id="drugs_placeholder">
-        <% 20.times.each do |drug| %>
+        <% 20.times.each do |index| %>
           <li>
-            <div class="animate-pulse"><div class="h-2 w-24 bg-slate-200 rounded"></div></div>
+            <div class="animate-pulse"><div class="h-2 w-24 bg-slate-200 rounded <%= index.even? ? "max-w-[360px]" : nil %>"></div></div>
           </li>
         <% end %>
       </ul>
     <% end %>
     <%= turbo_frame_tag "drugs_pagination" %>
   </div>
-
 </div>
