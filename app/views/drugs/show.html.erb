@@ -1,6 +1,6 @@
 <% content_for :title, @drug.name %>
 
-<div class="mt-20">
+<div class="mt-10">
   <%= cache @drug do %>
     <div class="prose">
       <%= render_markdown @drug.content %>
