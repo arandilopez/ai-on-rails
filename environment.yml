@@ -1,0 +1,14 @@
+name: ai-on-rails
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - jupyter
+  - numpy
+  - pandas
+  - matplotlib
+  - sqlalchemy
+  - psycopg2
+  - scikit-learn
+  - sentence-transformers
+  - ollama
