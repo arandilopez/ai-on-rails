@@ -1,13 +1,11 @@
 <% content_for :title, @drug.name %>
 
-<div class="mt-10">
-  <%= cache @drug do %>
-    <div class="prose">
-      <%= render_markdown @drug.content %>
+<%= link_to root_path do %>
+  <h1 class="text-3xl text-purple-900 font-bold my-4">Drugs Ai</h1>
+<% end %>
 
-      <p class="text-sm text-slate-500">
-        Retrieved from: <%= link_to @drug.url, @drug.url %>
-      </p>
-    </div>
+<div class="flex justify-between w-full">
+  <%= cache @drug do %>
+    <%= render @drug %>
   <% end %>
 </div>

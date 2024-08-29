@@ -12,16 +12,10 @@ class Vectorizer
   def vectorize(text)
     result = ollama.embeddings({
                                  model: MODEL,
-                                 prompt: text
-                               })
-
-    result.first['embedding']
-  end
-
-  def vectorize_query(query)
-    result = ollama.embeddings({
-                                 model: MODEL,
-                                 prompt: "Represent this sentence for searching relevant passages: #{query}"
+                                 prompt: text,
+                                 options: {
+                                   num_ctx: 8192
+                                 }
                                })
 
     result.first['embedding']
