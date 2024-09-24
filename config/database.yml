@@ -87,4 +87,4 @@ production:
   <<: *default
   database: ai_on_rails_production
   username: ai_on_rails
-  password: <%= ENV["AI_ON_RAILS_DATABASE_PASSWORD"] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
