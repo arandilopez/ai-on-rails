@@ -2,7 +2,7 @@
 service: ai-on-rails
 
 # Name of the container image.
-image: ai-on-rails
+image: arandilopez/ai-on-rails
 
 # Deploy to these servers.
 servers:
