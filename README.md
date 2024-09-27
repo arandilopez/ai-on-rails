@@ -52,7 +52,7 @@ rails db:migrate
 6. Seed the database, this will populate the database with the drugs information
 
 ```bash
-rails db:seed
+psql -U postgres -W -d ai_on_rails_development < db/drugs.sql
 ```
 
 7. Start the server
